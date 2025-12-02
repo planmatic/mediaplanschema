@@ -50,6 +50,30 @@
 		"parent_id": {
           "type": "string",
           "description": "Identifier of the parent media plan if this is a revision or copy"
+        },
+		"dim_custom1": {
+          "type": "string",
+          "description": "Custom dimension field 1 - configuration defined in dictionary schema"
+        },
+		"dim_custom2": {
+          "type": "string",
+          "description": "Custom dimension field 2 - configuration defined in dictionary schema"
+        },
+		"dim_custom3": {
+          "type": "string",
+          "description": "Custom dimension field 3 - configuration defined in dictionary schema"
+        },
+		"dim_custom4": {
+          "type": "string",
+          "description": "Custom dimension field 4 - configuration defined in dictionary schema"
+        },
+		"dim_custom5": {
+          "type": "string",
+          "description": "Custom dimension field 5 - configuration defined in dictionary schema"
+        },
+		"custom_properties": {
+          "type": "object",
+          "description": "Extensible JSON dictionary for storing custom metadata, settings, or metrics that don't fit elsewhere in the schema"
         }
       }
     },

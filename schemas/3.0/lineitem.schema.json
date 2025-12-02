@@ -85,6 +85,10 @@
       "type": "string",
       "description": "Custom KPI specification when standard KPIs don't apply"
     },
+	"kpi_value": {
+      "type": "number",
+      "description": "Target value or goal for the primary key performance indicator"
+    },
 	"dayparts": {
       "type": "string",
       "description": "Time periods when the ad should run (e.g., Primetime, Morning, All Day)"
@@ -100,6 +104,14 @@
 	"inventory_custom": {
       "type": "string",
       "description": "Custom inventory specification when standard inventory types don't apply"
+    },
+	"buy_type": {
+      "type": "string",
+      "description": "Type of media buying arrangement (e.g., Auction, Programmatic Guaranteed, Upfront, Scatter)"
+    },
+	"buy_commitment": {
+      "type": "string",
+      "description": "Commitment level for the media purchase (e.g., Cancellable, Committed, Non-Cancellable)"
     },
 
 	"dim_custom1": {
@@ -142,10 +154,22 @@
       "type": "string",
       "description": "Custom dimension field 10 - configuration defined in dictionary schema"
     },
+	"is_aggregate": {
+      "type": "boolean",
+      "description": "Whether this line item contains aggregated values (useful for storing channel-level budgets or campaign-level reach estimates)"
+    },
+	"aggregation_level": {
+      "type": "string",
+      "description": "Level at which the aggregate is stored (e.g., channel, campaign, vehicle) when is_aggregate is true"
+    },
 
 	"cost_currency": {
       "type": "string",
       "description": "Currency code for all cost fields in this line item (e.g., USD, EUR, GBP)"
+    },
+	"cost_currency_exchange_rate": {
+      "type": "number",
+      "description": "Exchange rate to convert from line item currency to campaign-level currency (useful when line items use different currencies)"
     },
     "cost_total": {
       "type": "number",
@@ -212,6 +236,14 @@
       "type": "number",
       "description": "Custom cost field 10 - configuration defined in dictionary schema"
     },
+    "cost_minimum": {
+      "type": "number",
+      "description": "Minimum budget constraint for the line item (user-defined lower bound)"
+    },
+    "cost_maximum": {
+      "type": "number",
+      "description": "Maximum budget constraint for the line item (user-defined upper bound)"
+    },
 
     "metric_impressions": {
       "type": "number",
@@ -224,6 +256,26 @@
     "metric_views": {
       "type": "number",
       "description": "Number of video views or content views"
+    },
+    "metric_view_starts": {
+      "type": "number",
+      "description": "Number of video view starts"
+    },
+    "metric_view_completions": {
+      "type": "number",
+      "description": "Number of video view completions"
+    },
+    "metric_reach": {
+      "type": "number",
+      "description": "Number of unique users reached"
+    },
+    "metric_units": {
+      "type": "number",
+      "description": "Number of units delivered (e.g., TV spots, radio ads, print insertions)"
+    },
+    "metric_impression_share": {
+      "type": "number",
+      "description": "Percentage of total available impressions captured"
     },
     "metric_engagements": {
       "type": "number",
@@ -272,6 +324,26 @@
     "metric_signup": {
       "type": "number",
       "description": "Number of signups or registrations"
+    },
+    "metric_page_views": {
+      "type": "number",
+      "description": "Number of page views"
+    },
+    "metric_likes": {
+      "type": "number",
+      "description": "Number of likes or reactions"
+    },
+    "metric_shares": {
+      "type": "number",
+      "description": "Number of shares or reposts"
+    },
+    "metric_comments": {
+      "type": "number",
+      "description": "Number of comments"
+    },
+    "metric_conversions": {
+      "type": "number",
+      "description": "Number of conversions or goal completions"
     },
     "metric_max_daily_spend": {
       "type": "number",
@@ -325,6 +397,47 @@
     "metric_custom10": {
       "type": "number",
       "description": "Custom metric field 10 - configuration defined in dictionary schema"
+    },
+	"metric_formulas": {
+      "type": "object",
+      "description": "Formula configurations for metrics that use custom calculation formulas instead of direct values. Each metric's formula type and base metric are defined in the dictionary schema and should be consistent across all line items.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "formula_type": {
+            "type": "string",
+            "description": "Type of formula function (e.g., power, logarithmic, exponential). Defined in dictionary schema - should match across all line items for this metric."
+          },
+          "base_metric": {
+            "type": "string",
+            "description": "The metric used as input for the formula calculation (e.g., cost_total, metric_impressions). Defined in dictionary schema - should match across all line items for this metric."
+          },
+          "coefficient": {
+            "type": "number",
+            "description": "Coefficient value for the formula"
+          },
+          "parameter1": {
+            "type": "number",
+            "description": "First parameter for the formula function"
+          },
+          "parameter2": {
+            "type": "number",
+            "description": "Second parameter for the formula function"
+          },
+          "parameter3": {
+            "type": "number",
+            "description": "Third parameter for the formula function"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Additional notes about the formula configuration (e.g., calibration source, assumptions)"
+          }
+        }
+      }
+    },
+	"custom_properties": {
+      "type": "object",
+      "description": "Extensible JSON dictionary for storing custom metadata, settings, or metrics that don't fit elsewhere in the schema"
     }
 
   }
