@@ -406,11 +406,11 @@
         "properties": {
           "formula_type": {
             "type": "string",
-            "description": "Type of formula function (e.g., power, logarithmic, exponential). Defined in dictionary schema - should match across all line items for this metric."
+            "description": "Type of formula function. Common types include: 'cost_per_unit', 'conversion_rate', 'constant', 'power_function'. Defined in dictionary schema - should match across all line items for this metric."
           },
           "base_metric": {
             "type": "string",
-            "description": "The metric used as input for the formula calculation (e.g., cost_total, metric_impressions). Defined in dictionary schema - should match across all line items for this metric."
+            "description": "The metric or cost field used as input for the formula calculation (e.g., cost_total, cost_media, metric_impressions, metric_clicks). Defined in dictionary schema - should match across all line items for this metric."
           },
           "coefficient": {
             "type": "number",
