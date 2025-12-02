@@ -130,6 +130,6 @@ def test_schema_file_structure():
             assert "campaign.schema.json" in schemas, f"campaign.schema.json missing in version {version}"
             assert "lineitem.schema.json" in schemas, f"lineitem.schema.json missing in version {version}"
 
-        if version == "2.0":
-            # Version 2.0 should have the dictionary schema
+        if version in ["2.0", "3.0"]:
+            # Version 2.0+ should have the dictionary schema
             assert "dictionary.schema.json" in schemas, f"dictionary.schema.json missing in version {version}"

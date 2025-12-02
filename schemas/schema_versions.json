@@ -2,6 +2,6 @@
   "deprecated": ["0.0"],
   "current": "2.0",
   "supported": ["1.0", "2.0"],
-  "preview": [],
+  "preview": ["3.0"],
   "description": "Defines supported schema versions for media plans."
 }
