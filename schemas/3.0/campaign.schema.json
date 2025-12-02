@@ -171,7 +171,9 @@
           },
           "population_percent": {
             "type": "number",
-            "description": "Percentage of the location's population being targeted"
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Estimated percentage of the total target population that can be targeted in this target location, expressed as a decimal between 0 and 1 (e.g., 0.452 for 45.2%)"
           }
         }
       }
@@ -186,7 +188,7 @@
     },
 	"kpi_name1": {
       "type": "string",
-      "description": "Name of the first key performance indicator (e.g., impressions, views, clicks)"
+      "description": "Name of the first key performance indicator. Should reference a standard metric (e.g., metric_impressions, metric_clicks, metric_leads) or custom metric (e.g., metric_custom1) from the lineitem schema."
     },
 	"kpi_value1": {
       "type": "number",
@@ -194,7 +196,7 @@
     },
 	"kpi_name2": {
       "type": "string",
-      "description": "Name of the second key performance indicator (e.g., impressions, views, clicks)"
+      "description": "Name of the second key performance indicator. Should reference a standard metric (e.g., metric_impressions, metric_clicks, metric_leads) or custom metric (e.g., metric_custom1) from the lineitem schema."
     },
 	"kpi_value2": {
       "type": "number",
@@ -202,7 +204,7 @@
     },
 	"kpi_name3": {
       "type": "string",
-      "description": "Name of the third key performance indicator (e.g., impressions, views, clicks)"
+      "description": "Name of the third key performance indicator. Should reference a standard metric (e.g., metric_impressions, metric_clicks, metric_leads) or custom metric (e.g., metric_custom1) from the lineitem schema."
     },
 	"kpi_value3": {
       "type": "number",
@@ -210,7 +212,7 @@
     },
 	"kpi_name4": {
       "type": "string",
-      "description": "Name of the fourth key performance indicator (e.g., impressions, views, clicks)"
+      "description": "Name of the fourth key performance indicator. Should reference a standard metric (e.g., metric_impressions, metric_clicks, metric_leads) or custom metric (e.g., metric_custom1) from the lineitem schema."
     },
 	"kpi_value4": {
       "type": "number",
@@ -218,7 +220,7 @@
     },
 	"kpi_name5": {
       "type": "string",
-      "description": "Name of the fifth key performance indicator (e.g., impressions, views, clicks)"
+      "description": "Name of the fifth key performance indicator. Should reference a standard metric (e.g., metric_impressions, metric_clicks, metric_leads) or custom metric (e.g., metric_custom1) from the lineitem schema."
     },
 	"kpi_value5": {
       "type": "number",

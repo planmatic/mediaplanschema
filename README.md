@@ -24,13 +24,22 @@ media-plan-ods/
 │   │   ├── dictionary.schema.json
 │   │   ├── lineitem.schema.json
 │   │   └── mediaplan.schema.json
+│   ├── 3.0/             # Preview version
+│   │   ├── campaign.schema.json
+│   │   ├── dictionary.schema.json
+│   │   ├── lineitem.schema.json
+│   │   └── mediaplan.schema.json
 │   └── schema_versions.json
 ├── examples/            # Example media plan files
-│   ├── example_mediaplan_v0.0.json
+│   ├── deprecated/
+│   │   └── example_mediaplan_v0.0.json
 │   ├── example_mediaplan_v1.0.json
-│   └── example_mediaplan_v2.0.json
+│   ├── example_mediaplan_v2.0.json
+│   └── example_mediaplan_v3.0.json
 ├── tests/               # Unit tests for schema validation
 │   └── test_examples.py
+├── scripts/             # Utility scripts
+│   └── generate_schema_doc.py
 ├── .venv/               # Local Python virtual environment (not tracked in Git)
 ├── .gitignore
 ├── requirements.txt     # Python dependencies
@@ -59,7 +68,7 @@ Version 2.0 introduces an additional schema file:
 
 The **dictionary schema** allows organizations to define custom dimensions, metrics, and cost fields with human-readable captions and descriptions. This enables standardized use of custom fields across different media planning tools and workflows while maintaining semantic meaning.
 
-Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "1.0" or "2.0").
+Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "1.0", "2.0", or "3.0").
 
 ### Schema Versioning Strategy
 
@@ -67,10 +76,13 @@ Each media plan JSON file must include a `meta.schema_version` field that declar
 
 **Minor Version (X.Y):** Non-breaking changes including adding optional fields or adding new allowable values to existing fields.
 
-Currently supported versions:
+**Preview Versions:** New major versions may be released in preview mode for testing and early adoption before becoming the current version.
+
+Currently available versions:
 - **0.0**: Deprecated - Legacy schema with simpler structure
 - **1.0**: Supported - Stable schema with extended fields and structure
 - **2.0**: Current - Enhanced version with custom field configuration via dictionary schema
+- **3.0**: Preview - Next generation schema with advanced targeting, formulas, and extensibility (see details below)
 
 ---
 
@@ -153,6 +165,94 @@ Example dictionary configuration:
   }
 }
 ```
+
+### Version 3.0 (Preview) - Breaking Changes
+
+Version 3.0 represents a major evolution of the schema with significant breaking changes and new capabilities designed for advanced media planning, forecasting, and optimization workflows.
+
+**Status:** Preview - Available for testing and early adoption. Not recommended for production use until officially released.
+
+#### New Features
+
+**Meta-Level Enhancements:**
+- **Custom dimensions** (dim_custom1-5): Classify plan versions with custom dimensions
+- **Custom properties**: Extensible JSON object for storing arbitrary metadata
+
+**Campaign-Level Enhancements:**
+- **BREAKING: target_audiences** (array): Replaces single audience fields with support for multiple audience segments
+  - Detailed demographic, interest, intent, and behavioral attributes
+  - Audience extension strategies (lookalike modeling)
+  - Population size tracking per audience
+- **BREAKING: target_locations** (array): Replaces single location fields with flexible geo-targeting
+  - Support for multiple location types (Country, State, DMA, County, Postcode, Radius, POI)
+  - Inclusion and exclusion lists
+  - Population percentage targeting
+- **KPI tracking** (kpi_name1-5, kpi_value1-5): Campaign-level KPI targets linked to lineitem metrics
+- **Custom dimensions** (dim_custom1-5): Campaign-level classification
+- **Custom properties**: Extensible JSON object for campaign settings
+
+**Lineitem-Level Enhancements:**
+- **kpi_value**: Target value for the lineitem's primary KPI
+- **buy_type & buy_commitment**: Media buying arrangement details (Auction, Programmatic Guaranteed, Upfront, etc.)
+- **is_aggregate & aggregation_level**: Support for aggregate line items (channel-level budgets, campaign-level constraints)
+- **cost_currency_exchange_rate**: Multi-currency support with exchange rates
+- **cost_minimum & cost_maximum**: Budget constraints for optimization
+- **New standard metrics**: view_starts, view_completions, reach, units, impression_share, page_views, likes, shares, comments, conversions
+- **metric_formulas**: Formula-based metric calculation with coefficients and parameters
+  - Supports multiple formula types: cost_per_unit, conversion_rate, constant, power_function
+  - Enables forecasting and what-if scenario modeling
+- **Custom properties**: Extensible JSON object for targeting settings and metadata
+
+**Dictionary Schema Enhancements:**
+- **BREAKING: Scoped custom dimensions**: Separate dictionaries for meta, campaign, and lineitem levels
+  - `meta_custom_dimensions` (dim_custom1-5)
+  - `campaign_custom_dimensions` (dim_custom1-5)
+  - `lineitem_custom_dimensions` (dim_custom1-10, renamed from `custom_dimensions`)
+- **standard_metrics**: Formula configuration for standard metrics (metric_impressions, metric_clicks, metric_leads, etc.)
+  - Only formula-capable metrics are listed
+  - Defines formula_type and base_metric for each
+- **Enhanced custom_metrics**: Extended with formula_type and base_metric fields
+
+#### Breaking Changes Summary
+
+**Fields Removed:**
+- Campaign: `audience_name`, `audience_age_start`, `audience_age_end`, `audience_gender`, `audience_interests`
+- Campaign: `location_type`, `locations`
+
+**Fields Replaced:**
+- Campaign: Old audience fields → `target_audiences` (array of audience objects)
+- Campaign: Old location fields → `target_locations` (array of location objects)
+- Dictionary: `custom_dimensions` → `lineitem_custom_dimensions` (renamed for clarity)
+
+**Migration Path:**
+v2.0 media plans can be upgraded to v3.0 by:
+1. Converting single audience to `target_audiences` array with one element
+2. Converting location fields to `target_locations` array with one element
+3. Updating dictionary references from `custom_dimensions` to `lineitem_custom_dimensions`
+
+#### Formula-Based Forecasting (v3.0)
+
+Version 3.0 introduces formula-based metric calculation for forecasting and scenario planning:
+
+```json
+"metric_formulas": {
+  "metric_leads": {
+    "formula_type": "power_function",
+    "base_metric": "cost_total",
+    "coefficient": 10.5,
+    "parameter1": 0.82,
+    "comments": "Calibrated using historical data"
+  }
+}
+```
+
+**Supported formula types:**
+- `cost_per_unit`: Linear division (e.g., impressions = cost / CPM)
+- `conversion_rate`: Linear multiplication (e.g., clicks = impressions × CTR)
+- `constant`: Fixed value (e.g., baseline metric)
+- `power_function`: Power function for diminishing returns (e.g., leads = coefficient × cost^exponent)
+
+Applications can define additional formula types for specialized use cases (MMM curves, saturation functions, etc.).
 
 ---
 

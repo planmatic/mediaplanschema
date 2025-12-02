@@ -1,0 +1,375 @@
+{
+  "meta": {
+    "id": "mp_2025_q3_globaltech_002",
+    "schema_version": "3.0",
+    "name": "GlobalTech Q3 2025 Lead Generation Campaign",
+    "created_by_id": "user_sarah_johnson_123",
+    "created_by_name": "Sarah Johnson",
+    "created_at": "2025-09-01T10:15:00Z",
+    "comments": "Q3 lead generation campaign demonstrating v3.0 features: target_audiences, target_locations, metric_formulas, and multi-currency support.",
+    "is_current": true,
+    "is_archived": false,
+    "parent_id": "mp_2025_q2_globaltech_001",
+    "dim_custom1": "Q3 2025",
+    "dim_custom2": "Enterprise Focus",
+    "custom_properties": {
+      "planning_metadata": {
+        "planner_email": "sarah.johnson@digitalpartners.com",
+        "approval_date": "2025-08-15",
+        "planning_tool": "Planmatic v2.5"
+      }
+    }
+  },
+  "campaign": {
+    "id": "camp_globaltech_q3_2025",
+    "name": "GlobalTech AI Platform Lead Gen - Q3 2025",
+    "objective": "Lead Generation",
+    "start_date": "2025-10-01",
+    "end_date": "2025-12-31",
+    "budget_currency": "USD",
+    "budget_total": 950000,
+    "agency_id": "agency_digitalmedia_partners",
+    "agency_name": "Digital Media Partners",
+    "advertiser_id": "advertiser_globaltech_corp",
+    "advertiser_name": "GlobalTech Corporation",
+    "product_id": "product_ai_platform_v4",
+    "product_name": "GlobalTech AI Platform v4.0",
+    "product_description": "Enterprise AI platform with advanced analytics and automation capabilities",
+    "campaign_type_id": "type_lead_generation",
+    "campaign_type_name": "Lead Generation",
+    "target_audiences": [
+      {
+        "name": "Enterprise IT Decision Makers",
+        "description": "C-level and VP-level technology executives at Fortune 1000 companies",
+        "demo_age_start": 35,
+        "demo_age_end": 55,
+        "demo_gender": "Any",
+        "demo_attributes": "Income $150k+, management role",
+        "interest_attributes": "Enterprise software, cloud computing, AI/ML, digital transformation",
+        "intent_attributes": "Researching enterprise software, attending tech conferences",
+        "extension_approach": "LinkedIn lookalike, 1% similarity",
+        "population_size": 285000
+      },
+      {
+        "name": "Data Science Leaders",
+        "description": "Data science directors and analytics team leads",
+        "demo_age_start": 30,
+        "demo_age_end": 50,
+        "demo_gender": "Any",
+        "interest_attributes": "Machine learning, data visualization, predictive analytics",
+        "content_attributes": "Reads technical blogs, attends data science conferences",
+        "population_size": 145000
+      }
+    ],
+    "target_locations": [
+      {
+        "name": "North America Core Markets",
+        "description": "Primary US and Canadian markets",
+        "location_type": "DMA",
+        "location_list": ["New York", "San Francisco", "Los Angeles", "Chicago", "Boston", "Seattle"],
+        "population_percent": 0.452
+      },
+      {
+        "name": "EMEA Markets",
+        "location_type": "Country",
+        "location_list": ["United Kingdom", "Germany", "France"],
+        "population_percent": 0.385
+      }
+    ],
+    "workflow_status_id": "status_approved_live",
+    "workflow_status_name": "Approved - Live",
+    "kpi_name1": "metric_leads",
+    "kpi_value1": 2000,
+    "kpi_name2": "metric_conversions",
+    "kpi_value2": 400,
+    "kpi_name3": "metric_clicks",
+    "kpi_value3": 690000,
+    "dim_custom1": "B2B",
+    "dim_custom2": "Enterprise",
+    "custom_properties": {
+      "campaign_settings": {
+        "attribution_model": "multi-touch",
+        "conversion_window_days": 90
+      }
+    }
+  },
+  "lineitems": [
+    {
+      "id": "li_linkedin_sponsored_001",
+      "name": "LinkedIn Sponsored Content - IT Decision Makers",
+      "start_date": "2025-10-01",
+      "end_date": "2025-12-31",
+      "channel": "Digital",
+      "vehicle": "LinkedIn",
+      "partner": "LinkedIn Marketing Solutions",
+      "media_product": "Sponsored Content",
+      "target_audience": "Enterprise IT Decision Makers",
+      "adformat": "Single Image Ad",
+      "kpi": "Leads",
+      "kpi_value": 700,
+      "dayparts": "Business Hours",
+      "inventory": "Feed Placement",
+      "buy_type": "Programmatic Guaranteed",
+      "buy_commitment": "Committed",
+      "dim_custom1": "B2B",
+      "dim_custom2": "Professional",
+      "cost_currency": "USD",
+      "cost_total": 400000,
+      "cost_media": 360000,
+      "cost_buying": 20000,
+      "cost_platform": 12000,
+      "cost_data": 6000,
+      "cost_creative": 2000,
+      "cost_minimum": 370000,
+      "cost_maximum": 430000,
+      "metric_impressions": 12000000,
+      "metric_clicks": 180000,
+      "metric_reach": 1800000,
+      "metric_visits": 150000,
+      "metric_leads": 700,
+      "metric_conversions": 140,
+      "metric_max_daily_spend": 4300,
+      "metric_max_daily_impressions": 130000,
+      "metric_audience_size": 285000,
+      "metric_formulas": {
+        "metric_leads": {
+          "formula_type": "power_function",
+          "base_metric": "cost_total",
+          "coefficient": 10.5,
+          "parameter1": 0.82,
+          "comments": "Calibrated using 18 months historical LinkedIn data"
+        },
+        "metric_conversions": {
+          "formula_type": "conversion_rate",
+          "base_metric": "metric_leads",
+          "coefficient": 0.20,
+          "parameter1": 1.0,
+          "comments": "20% of leads convert to opportunities"
+        }
+      },
+      "custom_properties": {
+        "targeting": {
+          "job_titles": ["CTO", "CIO", "VP Technology"],
+          "company_size": "1000+"
+        }
+      }
+    },
+    {
+      "id": "li_google_search_002",
+      "name": "Google Search - AI Platform Keywords",
+      "start_date": "2025-10-01",
+      "end_date": "2025-12-31",
+      "channel": "Digital",
+      "vehicle": "Google",
+      "partner": "Google Ads",
+      "media_product": "Search Ads",
+      "target_audience": "Enterprise IT Decision Makers",
+      "adformat": "Text Ad",
+      "kpi": "Leads",
+      "kpi_value": 550,
+      "dayparts": "All Day",
+      "inventory": "Search Network",
+      "buy_type": "Auction",
+      "buy_commitment": "Cancellable",
+      "dim_custom1": "B2B",
+      "dim_custom2": "High Intent",
+      "cost_currency": "USD",
+      "cost_total": 280000,
+      "cost_media": 258000,
+      "cost_buying": 12000,
+      "cost_platform": 7000,
+      "cost_data": 2000,
+      "cost_creative": 1000,
+      "cost_minimum": 260000,
+      "cost_maximum": 300000,
+      "metric_impressions": 3200000,
+      "metric_clicks": 160000,
+      "metric_reach": 850000,
+      "metric_visits": 152000,
+      "metric_leads": 550,
+      "metric_conversions": 110,
+      "metric_max_daily_spend": 3000,
+      "metric_max_daily_impressions": 35000,
+      "metric_audience_size": 1100000,
+      "metric_formulas": {
+        "metric_leads": {
+          "formula_type": "power_function",
+          "base_metric": "cost_total",
+          "coefficient": 8.2,
+          "parameter1": 0.78,
+          "comments": "Calibrated using Google Search historical performance"
+        },
+        "metric_conversions": {
+          "formula_type": "conversion_rate",
+          "base_metric": "metric_leads",
+          "coefficient": 0.20,
+          "parameter1": 1.0,
+          "comments": "20% of leads convert to opportunities"
+        }
+      }
+    },
+    {
+      "id": "li_youtube_video_003",
+      "name": "YouTube Video - Product Demo",
+      "start_date": "2025-10-15",
+      "end_date": "2025-12-15",
+      "channel": "Digital",
+      "vehicle": "YouTube",
+      "partner": "Google Ads",
+      "media_product": "TrueView In-Stream",
+      "target_audience": "Data Science Leaders",
+      "adformat": "Video",
+      "kpi": "Leads",
+      "kpi_value": 350,
+      "dayparts": "All Day",
+      "inventory": "YouTube Partner Network",
+      "buy_type": "Programmatic Guaranteed",
+      "buy_commitment": "Committed",
+      "dim_custom1": "B2B",
+      "dim_custom2": "Educational",
+      "cost_currency": "EUR",
+      "cost_currency_exchange_rate": 1.08,
+      "cost_total": 160000,
+      "cost_media": 145000,
+      "cost_buying": 8000,
+      "cost_platform": 4000,
+      "cost_data": 2000,
+      "cost_creative": 1000,
+      "cost_minimum": 150000,
+      "cost_maximum": 175000,
+      "metric_impressions": 15000000,
+      "metric_clicks": 150000,
+      "metric_reach": 2500000,
+      "metric_visits": 120000,
+      "metric_leads": 350,
+      "metric_conversions": 70,
+      "metric_max_daily_spend": 2600,
+      "metric_max_daily_impressions": 240000,
+      "metric_audience_size": 3200000,
+      "metric_formulas": {
+        "metric_leads": {
+          "formula_type": "power_function",
+          "base_metric": "cost_total",
+          "coefficient": 7.5,
+          "parameter1": 0.75,
+          "comments": "Video campaigns show diminishing returns, lower exponent"
+        },
+        "metric_conversions": {
+          "formula_type": "conversion_rate",
+          "base_metric": "metric_leads",
+          "coefficient": 0.20,
+          "parameter1": 1.0,
+          "comments": "20% of leads convert to opportunities"
+        }
+      }
+    },
+    {
+      "id": "li_programmatic_display_004",
+      "name": "Programmatic Display - Tech Publishers",
+      "start_date": "2025-10-01",
+      "end_date": "2025-12-31",
+      "channel": "Digital",
+      "vehicle_custom": "Premium Tech Publisher Network",
+      "partner": "The Trade Desk",
+      "media_product": "Display Banner",
+      "target_audience": "Enterprise IT Decision Makers",
+      "adformat": "Banner",
+      "kpi": "Leads",
+      "kpi_value": 400,
+      "dayparts": "All Day",
+      "inventory": "Premium Placements",
+      "buy_type": "Programmatic",
+      "buy_commitment": "Cancellable",
+      "dim_custom1": "B2B",
+      "dim_custom2": "Awareness",
+      "cost_currency": "USD",
+      "cost_total": 110000,
+      "cost_media": 100000,
+      "cost_buying": 5000,
+      "cost_platform": 3000,
+      "cost_data": 1500,
+      "cost_creative": 500,
+      "cost_minimum": 100000,
+      "cost_maximum": 120000,
+      "metric_impressions": 20000000,
+      "metric_clicks": 200000,
+      "metric_reach": 3500000,
+      "metric_visits": 160000,
+      "metric_leads": 400,
+      "metric_conversions": 80,
+      "metric_max_daily_spend": 1200,
+      "metric_max_daily_impressions": 220000,
+      "metric_audience_size": 4200000,
+      "metric_formulas": {
+        "metric_leads": {
+          "formula_type": "power_function",
+          "base_metric": "cost_total",
+          "coefficient": 15.2,
+          "parameter1": 0.70,
+          "comments": "Display shows strong diminishing returns"
+        },
+        "metric_conversions": {
+          "formula_type": "conversion_rate",
+          "base_metric": "metric_leads",
+          "coefficient": 0.20,
+          "parameter1": 1.0,
+          "comments": "20% of leads convert to opportunities"
+        }
+      }
+    }
+  ],
+  "dictionary": {
+    "meta_custom_dimensions": {
+      "dim_custom1": {
+        "status": "enabled",
+        "caption": "Planning Period"
+      },
+      "dim_custom2": {
+        "status": "enabled",
+        "caption": "Strategic Focus"
+      }
+    },
+    "campaign_custom_dimensions": {
+      "dim_custom1": {
+        "status": "enabled",
+        "caption": "Business Model"
+      },
+      "dim_custom2": {
+        "status": "enabled",
+        "caption": "Target Market"
+      }
+    },
+    "lineitem_custom_dimensions": {
+      "dim_custom1": {
+        "status": "enabled",
+        "caption": "Business Type"
+      },
+      "dim_custom2": {
+        "status": "enabled",
+        "caption": "Content Strategy"
+      }
+    },
+    "standard_metrics": {
+      "metric_leads": {
+        "formula_type": "power_function",
+        "base_metric": "cost_total"
+      },
+      "metric_conversions": {
+        "formula_type": "conversion_rate",
+        "base_metric": "metric_leads"
+      }
+    },
+    "custom_metrics": {
+      "metric_custom1": {
+        "status": "enabled",
+        "caption": "Brand Lift Index"
+      }
+    },
+    "custom_costs": {
+      "cost_custom1": {
+        "status": "enabled",
+        "caption": "Agency Fee"
+      }
+    }
+  }
+}
