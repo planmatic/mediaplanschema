@@ -11,24 +11,24 @@ For developers looking to build applications with this standard, check out our *
 ```
 media-plan-ods/
 ├── schemas/             # Versioned JSON Schema definitions
-│   ├── 0.0/
+│   ├── 1.0/             # Deprecated
 │   │   ├── campaign.schema.json
 │   │   ├── lineitem.schema.json
-│   │   └── mediaplan.schema.json
-│   ├── 1.0/
-│   │   ├── campaign.schema.json
-│   │   ├── lineitem.schema.json
-│   │   └── mediaplan.schema.json
-│   ├── 2.0/             # Current version
+│   │   ├── mediaplan.schema.json
+│   │   └── documentation/
+│   ├── 2.0/             # Supported - Previous version
 │   │   ├── campaign.schema.json
 │   │   ├── dictionary.schema.json
 │   │   ├── lineitem.schema.json
-│   │   └── mediaplan.schema.json
-│   ├── 3.0/             # Preview version
+│   │   ├── mediaplan.schema.json
+│   │   └── documentation/
+│   ├── 3.0/             # Current version
 │   │   ├── campaign.schema.json
 │   │   ├── dictionary.schema.json
 │   │   ├── lineitem.schema.json
-│   │   └── mediaplan.schema.json
+│   │   ├── mediaplan.schema.json
+│   │   └── documentation/
+│   │       └── CHANGELOG_V2_TO_V3.md
 │   └── schema_versions.json
 ├── examples/            # Example media plan files
 │   ├── deprecated/
@@ -40,8 +40,6 @@ media-plan-ods/
 │   └── test_examples.py
 ├── scripts/             # Utility scripts
 │   └── generate_schema_doc.py
-├── .venv/               # Local Python virtual environment (not tracked in Git)
-├── .gitignore
 ├── requirements.txt     # Python dependencies
 └── README.md
 ```
@@ -53,7 +51,7 @@ media-plan-ods/
 Schemas are versioned under `schemas/<major>.<minor>/`. The main schema file is:
 
 ```
-schemas/2.0/mediaplan.schema.json
+schemas/3.0/mediaplan.schema.json
 ```
 
 This references:
@@ -61,14 +59,19 @@ This references:
 - `lineitem.schema.json`
 - `dictionary.schema.json`
 
-### Version 2.0 (Current)
+Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "2.0" or "3.0").
 
-Version 2.0 introduces an additional schema file:
-- `dictionary.schema.json` - Defines configuration for custom fields
+### Version 3.0 (Current)
 
-The **dictionary schema** allows organizations to define custom dimensions, metrics, and cost fields with human-readable captions and descriptions. This enables standardized use of custom fields across different media planning tools and workflows while maintaining semantic meaning.
+Version 3.0 is the current production version. See the [complete changelog](schemas/3.0/documentation/CHANGELOG_V2_TO_V3.md) for detailed migration information.
 
-Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "1.0", "2.0", or "3.0").
+Key features include:
+- Enhanced targeting with `target_audiences` and `target_locations` arrays
+- Formula-based metric calculation system with multiple formula types
+- 40% more fields (155 vs 116 in v2.0)
+- Custom KPIs at campaign level
+- 11 new standard metrics
+- Enhanced dictionary schema with scoped custom dimensions
 
 ### Schema Versioning Strategy
 
@@ -79,10 +82,10 @@ Each media plan JSON file must include a `meta.schema_version` field that declar
 **Preview Versions:** New major versions may be released in preview mode for testing and early adoption before becoming the current version.
 
 Currently available versions:
-- **0.0**: Deprecated - Legacy schema with simpler structure
-- **1.0**: Supported - Stable schema with extended fields and structure
-- **2.0**: Current - Enhanced version with custom field configuration via dictionary schema
-- **3.0**: Preview - Next generation schema with advanced targeting, formulas, and extensibility (see details below)
+- **0.0**: Deprecated - No longer supported
+- **1.0**: Deprecated - No longer supported
+- **2.0**: Supported - Enhanced version with custom field configuration via dictionary schema
+- **3.0**: Current - Production version with advanced targeting, formulas, and extensibility (see details below)
 
 ---
 
@@ -125,19 +128,14 @@ Each example is dynamically validated against the appropriate schema version dec
 
 ## Schema Version Details
 
-### Version 0.0 (Deprecated)
-- Basic structure with campaign and lineitem schemas
-- Simple budget structure
-- Limited customization options
-- **Note**: This version is deprecated and should not be used for new implementations
-
-### Version 1.0 (Supported)
+### Version 1.0 (Deprecated)
 - Enhanced campaign and lineitem schemas
 - Expanded budget tracking with cost breakdowns
 - Support for custom dimensions, metrics, and costs (up to 10 of each)
 - Improved targeting and audience definition
+- **Note**: This version is deprecated and no longer supported
 
-### Version 2.0 (Current)
+### Version 2.0 (Supported)
 - All features from version 1.0
 - **New dictionary schema** for custom field configuration
 - Enhanced metadata tracking with separate creator ID and name fields
@@ -166,11 +164,11 @@ Example dictionary configuration:
 }
 ```
 
-### Version 3.0 (Preview) - Breaking Changes
+### Version 3.0 (Current) - Breaking Changes
 
 Version 3.0 represents a major evolution of the schema with significant breaking changes and new capabilities designed for advanced media planning, forecasting, and optimization workflows.
 
-**Status:** Preview - Available for testing and early adoption. Not recommended for production use until officially released.
+**Status:** Production - Current version for all new implementations. See the [complete changelog](schemas/3.0/documentation/CHANGELOG_V2_TO_V3.md) for detailed migration information from v2.0.
 
 #### New Features
 
