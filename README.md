@@ -81,10 +81,16 @@ Key features include:
 **Preview Versions:** New major versions may be released in preview mode for testing and early adoption before becoming the current version.
 
 Currently available versions:
-- **0.0**: Deprecated - No longer supported
-- **1.0**: Deprecated - No longer supported
-- **2.0**: Supported - Enhanced version with custom field configuration via dictionary schema
 - **3.0**: Current - Production version with advanced targeting, formulas, and extensibility (see details below)
+- **2.0**: Supported - Enhanced version with custom field configuration via dictionary schema
+- **1.0**: Deprecated - No longer supported
+- **0.0**: Deprecated - No longer supported
+
+Important notes for developers using the mediaplanpy SDK:
+- SDK v2.0.7 only supports documents in schema v2.0
+- SDK v3.0.x only supports documents in schema v3.0
+- SDK v3.0.x provides a migration utility to upgrade existing Workspaces from schema v2.0 to v3.0
+- Developers managing workspaces in schema v2.0 should continue to use SDK v2.0.7 until they are ready to upgrade to v3.0
 
 ---
 
