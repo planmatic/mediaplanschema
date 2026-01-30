@@ -86,7 +86,7 @@ Currently available versions:
 - **1.0**: Deprecated - No longer supported
 - **0.0**: Deprecated - No longer supported
 
-Important notes for developers using the mediaplanpy SDK:
+**Important notes** for developers using the mediaplanpy SDK:
 - SDK v2.0.7 only supports documents in schema v2.0
 - SDK v3.0.x only supports documents in schema v3.0
 - SDK v3.0.x provides a migration utility to upgrade existing Workspaces from schema v2.0 to v3.0
@@ -159,6 +159,8 @@ v2.0 media plans can be upgraded to v3.0 by:
 1. Converting single audience to `target_audiences` array with one element
 2. Converting location fields to `target_locations` array with one element
 3. Updating dictionary references from `custom_dimensions` to `lineitem_custom_dimensions`
+
+**Note**: SDK v3.0.x provides a CLI-based utility for workspace migration from schema v2.0 to v3.0.
 
 #### Formula-Based Forecasting (v3.0)
 
