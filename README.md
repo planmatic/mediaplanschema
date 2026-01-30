@@ -88,48 +88,11 @@ Currently available versions:
 
 ---
 
-## Getting Started
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/laurent-colard-l5i/mediaplanschema.git
-cd mediaplanschema
-```
-
-### 2. Set Up a Virtual Environment
-
-```bash
-python -m venv .venv
-source .venv/bin/activate      # Mac/Linux
-.venv\Scripts\activate.bat   # Windows (CMD)
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## Running Validation Tests
-
-Run the unit test to validate all media plans in the `examples/` folder:
-
-```bash
-pytest tests/test_examples.py
-```
-
-Each example is dynamically validated against the appropriate schema version declared in its `meta.schema_version`. The test suite supports all versions including current and supported versions.
-
----
-
 ## Schema Version Details
 
 ### Version 3.0 (Current) - Breaking Changes
 
-Version 3.0 represents a major evolution of the schema with significant breaking changes and new capabilities designed for advanced media planning, forecasting, and optimization workflows.
+Version 3.0 represents a major evolution of the schema with several breaking changes and new capabilities designed for advanced media planning, forecasting, and optimization workflows.
 
 **Status:** Production - Current version for all new implementations. See the [complete changelog](schemas/3.0/documentation/CHANGELOG_V2_TO_V3.md) for detailed migration information from v2.0.
 
@@ -274,6 +237,43 @@ We welcome issues, schema proposals, and example files.
 - All PRs are tested for schema validity via unit tests
 - Contributions should follow semantic versioning when modifying schemas
 - When proposing changes to current versions, consider backward compatibility impact
+
+---
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/laurent-colard-l5i/mediaplanschema.git
+cd mediaplanschema
+```
+
+### 2. Set Up a Virtual Environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate      # Mac/Linux
+.venv\Scripts\activate.bat   # Windows (CMD)
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Running Validation Tests
+
+Run the unit test to validate all media plans in the `examples/` folder:
+
+```bash
+pytest tests/test_examples.py
+```
+
+Each example is dynamically validated against the appropriate schema version declared in its `meta.schema_version`. The test suite supports all versions including current and supported versions.
 
 ---
 
