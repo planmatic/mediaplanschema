@@ -423,6 +423,7 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
 
 ## Related Documents
 
+- **[MIGRATION_V2_TO_V3.md](MIGRATION_V2_TO_V3.md)** - Developer guide for migrating v2.0 documents to v3.0 with systematic rules and examples
 - **README.md** - Full v3.0 feature documentation
 - **Schema files** - schemas/3.0/*.schema.json
 - **Example file** - examples/example_mediaplan_v3.0.json
