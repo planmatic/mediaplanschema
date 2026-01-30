@@ -31,8 +31,6 @@ media-plan-ods/
 │   │       └── CHANGELOG_V2_TO_V3.md
 │   └── schema_versions.json
 ├── examples/            # Example media plan files
-│   ├── deprecated/
-│   │   └── example_mediaplan_v0.0.json
 │   ├── example_mediaplan_v1.0.json
 │   ├── example_mediaplan_v2.0.json
 │   └── example_mediaplan_v3.0.json
@@ -68,10 +66,11 @@ Version 3.0 is the current production version. See the [complete changelog](sche
 Key features include:
 - Enhanced targeting with `target_audiences` and `target_locations` arrays
 - Formula-based metric calculation system with multiple formula types
-- 40% more fields (155 vs 116 in v2.0)
+- 40 more fields (155 vs 116 in v2.0)
 - Custom KPIs at campaign level
 - 11 new standard metrics
 - Enhanced dictionary schema with scoped custom dimensions
+- Full extensibility using custo JSON dictionaries
 
 ### Schema Versioning Strategy
 
@@ -127,42 +126,6 @@ Each example is dynamically validated against the appropriate schema version dec
 ---
 
 ## Schema Version Details
-
-### Version 1.0 (Deprecated)
-- Enhanced campaign and lineitem schemas
-- Expanded budget tracking with cost breakdowns
-- Support for custom dimensions, metrics, and costs (up to 10 of each)
-- Improved targeting and audience definition
-- **Note**: This version is deprecated and no longer supported
-
-### Version 2.0 (Supported)
-- All features from version 1.0
-- **New dictionary schema** for custom field configuration
-- Enhanced metadata tracking with separate creator ID and name fields
-- Workflow status tracking
-- Improved documentation and field descriptions
-- Support for currency specification
-- Additional standard metrics (engagements, followers, visits, leads, etc.)
-
-#### Dictionary Schema Benefits (v2.0)
-The dictionary schema enables:
-- **Semantic clarity**: Define what each custom field represents
-- **Tool interoperability**: Consistent field meanings across different platforms
-- **Data governance**: Centralized configuration of custom field usage
-- **User experience**: Human-readable captions for custom fields in applications
-
-Example dictionary configuration:
-```json
-"dictionary": {
-  "custom_dimensions": {
-    "dim_custom1": {
-      "status": "enabled",
-      "caption": "Business Type",
-      "description": "Classification of business model (B2B, B2C, B2B2C)"
-    }
-  }
-}
-```
 
 ### Version 3.0 (Current) - Breaking Changes
 
@@ -251,6 +214,42 @@ Version 3.0 introduces formula-based metric calculation for forecasting and scen
 - `power_function`: Power function for diminishing returns (e.g., leads = coefficient × cost^exponent)
 
 Applications can define additional formula types for specialized use cases (MMM curves, saturation functions, etc.).
+
+### Version 2.0 (Supported)
+- All features from version 1.0
+- **New dictionary schema** for custom field configuration
+- Enhanced metadata tracking with separate creator ID and name fields
+- Workflow status tracking
+- Improved documentation and field descriptions
+- Support for currency specification
+- Additional standard metrics (engagements, followers, visits, leads, etc.)
+
+#### Dictionary Schema Benefits (v2.0)
+The dictionary schema enables:
+- **Semantic clarity**: Define what each custom field represents
+- **Tool interoperability**: Consistent field meanings across different platforms
+- **Data governance**: Centralized configuration of custom field usage
+- **User experience**: Human-readable captions for custom fields in applications
+
+Example dictionary configuration:
+```json
+"dictionary": {
+  "custom_dimensions": {
+    "dim_custom1": {
+      "status": "enabled",
+      "caption": "Business Type",
+      "description": "Classification of business model (B2B, B2C, B2B2C)"
+    }
+  }
+}
+```
+
+### Version 1.0 (Deprecated)
+- Enhanced campaign and lineitem schemas
+- Expanded budget tracking with cost breakdowns
+- Support for custom dimensions, metrics, and costs (up to 10 of each)
+- Improved targeting and audience definition
+- **Note**: This version is deprecated and no longer supported
 
 ---
 
