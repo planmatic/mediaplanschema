@@ -1,8 +1,6 @@
 # Changelog: v2.0 to v3.0
 
-**Quick Reference for SDK Development**
-
-This document provides a comprehensive field-by-field comparison between v2.0 and v3.0 schemas to facilitate SDK upgrades.
+This document provides a comprehensive field-by-field comparison between v2.0 and v3.0 schemas.
 
 ---
 
@@ -47,8 +45,6 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
     - `extension_approach` (string)
     - `population_size` (integer)
 
-**SDK Impact**: Requires migration logic, validation updates, serialization changes
-
 ---
 
 ### 2. Campaign Schema - Location Fields
@@ -68,8 +64,6 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
     - `exclusion_list` (array of strings)
     - `population_percent` (number, 0-1)
 
-**SDK Impact**: Requires migration logic, validation updates, expanded enum support
-
 ---
 
 ### 3. Dictionary Schema - Custom Dimensions Rename
@@ -77,8 +71,6 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
 **RENAMED**:
 - v2.0: `custom_dimensions`
 - v3.0: `lineitem_custom_dimensions`
-
-**SDK Impact**: Field name mapping in serialization/deserialization
 
 ---
 
@@ -93,8 +85,6 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
 - `dim_custom4` (string)
 - `dim_custom5` (string)
 - `custom_properties` (object)
-
-**SDK Impact**: Extend meta object model, add validation for custom dimensions
 
 ---
 
@@ -117,8 +107,6 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
 - `dim_custom4` (string)
 - `dim_custom5` (string)
 - `custom_properties` (object)
-
-**SDK Impact**: Extend campaign object model, add KPI validation
 
 ---
 
@@ -169,8 +157,6 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
 **Extensibility:**
 - `custom_properties` (object)
 
-**SDK Impact**: Extend lineitem object model, add formula evaluation engine, add new metric validation
-
 ---
 
 ### Dictionary Schema
@@ -193,59 +179,6 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
 **custom_metrics** (enhanced):
 - Added formula support fields
 - Structure: `custom_metric_config` (status, caption, formula_type, base_metric)
-
-**SDK Impact**: Dictionary parser updates, formula configuration validation, scoped dimension support
-
----
-
-## SDK Component Impact Assessment
-
-### 1. Schema Validation
-- [ ] Update schema file references (2.0 → 3.0)
-- [ ] Add validation for target_audiences array structure
-- [ ] Add validation for target_locations array structure
-- [ ] Add validation for metric_formulas object structure
-- [ ] Update dictionary validation for renamed/new sections
-- [ ] Add enum validation for expanded location_type
-- [ ] Add range validation for population_percent (0-1)
-
-### 2. Data Models / Classes
-- [ ] Update Meta class: add dim_custom1-5, custom_properties
-- [ ] Update Campaign class: remove 7 fields, add target_audiences, target_locations, KPIs, dimensions, custom_properties
-- [ ] Update LineItem class: add 20 new fields including metric_formulas
-- [ ] Update Dictionary class: rename custom_dimensions, add 2 new groups, enhance custom_metrics
-- [ ] Create TargetAudience class (13 properties)
-- [ ] Create TargetLocation class (7 properties)
-- [ ] Create MetricFormula class (7 properties)
-
-### 3. Migration Utility
-- [ ] Implement v2→v3 migration function
-- [ ] Audience field migration with name generation
-- [ ] Location field migration with name generation
-- [ ] Dictionary key rename (custom_dimensions → lineitem_custom_dimensions)
-- [ ] Schema version update
-- [ ] Validation after migration
-
-### 4. Serialization / Deserialization
-- [ ] Update JSON serializers for new structures
-- [ ] Handle target_audiences array
-- [ ] Handle target_locations array
-- [ ] Handle metric_formulas object
-- [ ] Handle custom_properties objects at 3 levels
-- [ ] Update field mappings for renamed dictionary key
-
-### 5. Query / Analysis Functions
-- [ ] Add support for querying multiple audiences
-- [ ] Add support for querying multiple locations
-- [ ] Add formula evaluation engine
-- [ ] Add KPI tracking/comparison functions
-- [ ] Add custom properties accessor methods
-
-### 6. Documentation
-- [ ] Update API documentation
-- [ ] Add v3.0 examples
-- [ ] Document migration process
-- [ ] Update field reference documentation
 
 ---
 
@@ -432,8 +365,6 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
 
 **v3.0**: `["Country", "State", "DMA", "County", "Postcode", "Radius", "POI"]`
 
-**SDK Impact**: Validation must accept expanded enum values
-
 ---
 
 ## New Object Structures
@@ -490,80 +421,9 @@ This document provides a comprehensive field-by-field comparison between v2.0 an
 
 ---
 
-## Testing Checklist
-
-### Unit Tests
-- [ ] Test v2→v3 migration with all field combinations
-- [ ] Test audience name generation logic
-- [ ] Test location name generation logic (1, 2, 3, 4+ locations)
-- [ ] Test location name truncation at 50 chars
-- [ ] Test dictionary rename
-- [ ] Test schema validation for v3.0 files
-- [ ] Test backward compatibility (SDK reads v2.0 files)
-
-### Integration Tests
-- [ ] Test full migration pipeline on real v2.0 files
-- [ ] Test validation of migrated v3.0 files
-- [ ] Test round-trip (v2→v3→serialize→deserialize)
-- [ ] Test formula evaluation engine
-- [ ] Test custom properties handling
-
-### Edge Cases
-- [ ] Empty audience fields → omit target_audiences
-- [ ] Empty locations → omit target_locations
-- [ ] Missing location_type → omit in v3.0
-- [ ] Very long location names → truncate properly
-- [ ] Missing dictionary → no dictionary in v3.0
-- [ ] Partial audience data (only name, only age, etc.)
-
----
-
-## Migration Priority
-
-**Phase 1 (Required - Backward Compatibility)**
-1. Schema validation updates
-2. Data model updates for breaking changes
-3. Migration utility (v2→v3)
-4. Serialization/deserialization updates
-
-**Phase 2 (New Features)**
-1. Formula evaluation engine
-2. KPI tracking functions
-3. Custom properties support
-4. Extended query capabilities
-
-**Phase 3 (Enhancement)**
-1. Analysis tools for new fields
-2. Optimization using cost_min/max
-3. Multi-currency calculations
-4. Aggregate line item support
-
----
-
-## Version Detection
-
-SDK should detect version from `meta.schema_version`:
-
-```python
-def detect_version(mediaplan_json):
-    version = mediaplan_json.get("meta", {}).get("schema_version", "1.0")
-    return version
-
-def validate(mediaplan_json):
-    version = detect_version(mediaplan_json)
-    if version == "2.0":
-        return validate_v2(mediaplan_json)
-    elif version == "3.0":
-        return validate_v3(mediaplan_json)
-    else:
-        # Handle other versions
-```
-
----
-
 ## Related Documents
 
-- **MIGRATION_V2_TO_V3.md** - Step-by-step migration instructions with systematic rules
+- **[MIGRATION_V2_TO_V3.md](MIGRATION_V2_TO_V3.md)** - Developer guide for migrating v2.0 documents to v3.0 with systematic rules and examples
 - **README.md** - Full v3.0 feature documentation
 - **Schema files** - schemas/3.0/*.schema.json
 - **Example file** - examples/example_mediaplan_v3.0.json

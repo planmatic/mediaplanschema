@@ -11,28 +11,25 @@ For developers looking to build applications with this standard, check out our *
 ```
 media-plan-ods/
 ├── schemas/             # Versioned JSON Schema definitions
-│   ├── 0.0/
+│   ├── 1.0/             # Deprecated
 │   │   ├── campaign.schema.json
 │   │   ├── lineitem.schema.json
 │   │   └── mediaplan.schema.json
-│   ├── 1.0/
-│   │   ├── campaign.schema.json
-│   │   ├── lineitem.schema.json
-│   │   └── mediaplan.schema.json
-│   ├── 2.0/             # Current version # LC Merge Test 
+│   ├── 2.0/             # Current version
 │   │   ├── campaign.schema.json
 │   │   ├── dictionary.schema.json
 │   │   ├── lineitem.schema.json
-│   │   └── mediaplan.schema.json
-│   ├── 3.0/             # Preview version
+│   │   ├── mediaplan.schema.json
+│   │   └── documentation/
+│   ├── 3.0/             # Current version
 │   │   ├── campaign.schema.json
 │   │   ├── dictionary.schema.json
 │   │   ├── lineitem.schema.json
-│   │   └── mediaplan.schema.json
+│   │   ├── mediaplan.schema.json
+│   │   └── documentation/
+│   │       └── CHANGELOG_V2_TO_V3.md
 │   └── schema_versions.json
 ├── examples/            # Example media plan files
-│   ├── deprecated/
-│   │   └── example_mediaplan_v0.0.json
 │   ├── example_mediaplan_v1.0.json
 │   ├── example_mediaplan_v2.0.json
 │   └── example_mediaplan_v3.0.json
@@ -40,8 +37,6 @@ media-plan-ods/
 │   └── test_examples.py
 ├── scripts/             # Utility scripts
 │   └── generate_schema_doc.py
-├── .venv/               # Local Python virtual environment (not tracked in Git)
-├── .gitignore
 ├── requirements.txt     # Python dependencies
 └── README.md
 ```
@@ -53,7 +48,7 @@ media-plan-ods/
 Schemas are versioned under `schemas/<major>.<minor>/`. The main schema file is:
 
 ```
-schemas/2.0/mediaplan.schema.json
+schemas/3.0/mediaplan.schema.json
 ```
 
 This references:
@@ -61,14 +56,20 @@ This references:
 - `lineitem.schema.json`
 - `dictionary.schema.json`
 
-### Version 2.0 (Current)
+Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "2.0" or "3.0").
 
-Version 2.0 introduces an additional schema file:
-- `dictionary.schema.json` - Defines configuration for custom fields
+### Version 3.0 (Current)
 
-The **dictionary schema** allows organizations to define custom dimensions, metrics, and cost fields with human-readable captions and descriptions. This enables standardized use of custom fields across different media planning tools and workflows while maintaining semantic meaning.
+Version 3.0 is the current production version. See the [complete changelog](schemas/3.0/documentation/CHANGELOG_V2_TO_V3.md) for detailed migration information.
 
-Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "1.0", "2.0", or "3.0").
+Key features include:
+- Enhanced targeting with `target_audiences` and `target_locations` arrays
+- Formula-based metric calculation system with multiple formula types
+- 40 more fields (155 vs 116 in v2.0)
+- Custom KPIs at campaign level
+- 11 new standard metrics
+- Enhanced dictionary schema with scoped custom dimensions
+- Full extensibility using custo JSON dictionaries
 
 ### Schema Versioning Strategy
 
@@ -79,98 +80,26 @@ Each media plan JSON file must include a `meta.schema_version` field that declar
 **Preview Versions:** New major versions may be released in preview mode for testing and early adoption before becoming the current version.
 
 Currently available versions:
-- **0.0**: Deprecated - Legacy schema with simpler structure
-- **1.0**: Supported - Stable schema with extended fields and structure
-- **2.0**: Current - Enhanced version with custom field configuration via dictionary schema
-- **3.0**: Preview - Next generation schema with advanced targeting, formulas, and extensibility (see details below)
+- **3.0**: Current - Production version with advanced targeting, formulas, and extensibility (see details below)
+- **2.0**: Supported - Enhanced version with custom field configuration via dictionary schema
+- **1.0**: Deprecated - No longer supported
+- **0.0**: Deprecated - No longer supported
 
----
-
-## Getting Started
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/laurent-colard-l5i/mediaplanschema.git
-cd mediaplanschema
-```
-
-### 2. Set Up a Virtual Environment
-
-```bash
-python -m venv .venv
-source .venv/bin/activate      # Mac/Linux
-.venv\Scripts\activate.bat   # Windows (CMD)
-```
-
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## Running Validation Tests
-
-Run the unit test to validate all media plans in the `examples/` folder:
-
-```bash
-pytest tests/test_examples.py
-```
-
-Each example is dynamically validated against the appropriate schema version declared in its `meta.schema_version`. The test suite supports all versions including current and supported versions.
+**Important notes** for developers using the mediaplanpy SDK:
+- SDK v2.0.7 only supports documents in schema v2.0
+- SDK v3.0.x only supports documents in schema v3.0
+- SDK v3.0.x provides a migration utility to upgrade existing Workspaces from schema v2.0 to v3.0
+- Developers managing workspaces in schema v2.0 should continue to use SDK v2.0.7 until they are ready to upgrade to v3.0
 
 ---
 
 ## Schema Version Details
 
-### Version 0.0 (Deprecated)
-- Basic structure with campaign and lineitem schemas
-- Simple budget structure
-- Limited customization options
-- **Note**: This version is deprecated and should not be used for new implementations
+### Version 3.0 (Current) - Breaking Changes
 
-### Version 1.0 (Supported)
-- Enhanced campaign and lineitem schemas
-- Expanded budget tracking with cost breakdowns
-- Support for custom dimensions, metrics, and costs (up to 10 of each)
-- Improved targeting and audience definition
+Version 3.0 represents a major evolution of the schema with several breaking changes and new capabilities designed for advanced media planning, forecasting, and optimization workflows.
 
-### Version 2.0 (Current)
-- All features from version 1.0
-- **New dictionary schema** for custom field configuration
-- Enhanced metadata tracking with separate creator ID and name fields
-- Workflow status tracking
-- Improved documentation and field descriptions
-- Support for currency specification
-- Additional standard metrics (engagements, followers, visits, leads, etc.)
-
-#### Dictionary Schema Benefits (v2.0)
-The dictionary schema enables:
-- **Semantic clarity**: Define what each custom field represents
-- **Tool interoperability**: Consistent field meanings across different platforms
-- **Data governance**: Centralized configuration of custom field usage
-- **User experience**: Human-readable captions for custom fields in applications
-
-Example dictionary configuration:
-```json
-"dictionary": {
-  "custom_dimensions": {
-    "dim_custom1": {
-      "status": "enabled",
-      "caption": "Business Type",
-      "description": "Classification of business model (B2B, B2C, B2B2C)"
-    }
-  }
-}
-```
-
-### Version 3.0 (Preview) - Breaking Changes
-
-Version 3.0 represents a major evolution of the schema with significant breaking changes and new capabilities designed for advanced media planning, forecasting, and optimization workflows.
-
-**Status:** Preview - Available for testing and early adoption. Not recommended for production use until officially released.
+**Status:** Production - Current version for all new implementations. See the [complete changelog](schemas/3.0/documentation/CHANGELOG_V2_TO_V3.md) for detailed migration information from v2.0.
 
 #### New Features
 
@@ -230,6 +159,8 @@ v2.0 media plans can be upgraded to v3.0 by:
 2. Converting location fields to `target_locations` array with one element
 3. Updating dictionary references from `custom_dimensions` to `lineitem_custom_dimensions`
 
+**Note**: SDK v3.0.x provides a CLI-based utility for workspace migration from schema v2.0 to v3.0.
+
 #### Formula-Based Forecasting (v3.0)
 
 Version 3.0 introduces formula-based metric calculation for forecasting and scenario planning:
@@ -254,6 +185,42 @@ Version 3.0 introduces formula-based metric calculation for forecasting and scen
 
 Applications can define additional formula types for specialized use cases (MMM curves, saturation functions, etc.).
 
+### Version 2.0 (Supported)
+- All features from version 1.0
+- **New dictionary schema** for custom field configuration
+- Enhanced metadata tracking with separate creator ID and name fields
+- Workflow status tracking
+- Improved documentation and field descriptions
+- Support for currency specification
+- Additional standard metrics (engagements, followers, visits, leads, etc.)
+
+#### Dictionary Schema Benefits (v2.0)
+The dictionary schema enables:
+- **Semantic clarity**: Define what each custom field represents
+- **Tool interoperability**: Consistent field meanings across different platforms
+- **Data governance**: Centralized configuration of custom field usage
+- **User experience**: Human-readable captions for custom fields in applications
+
+Example dictionary configuration:
+```json
+"dictionary": {
+  "custom_dimensions": {
+    "dim_custom1": {
+      "status": "enabled",
+      "caption": "Business Type",
+      "description": "Classification of business model (B2B, B2C, B2B2C)"
+    }
+  }
+}
+```
+
+### Version 1.0 (Deprecated)
+- Enhanced campaign and lineitem schemas
+- Expanded budget tracking with cost breakdowns
+- Support for custom dimensions, metrics, and costs (up to 10 of each)
+- Improved targeting and audience definition
+- **Note**: This version is deprecated and no longer supported
+
 ---
 
 ## Developer Tools
@@ -277,6 +244,43 @@ We welcome issues, schema proposals, and example files.
 - All PRs are tested for schema validity via unit tests
 - Contributions should follow semantic versioning when modifying schemas
 - When proposing changes to current versions, consider backward compatibility impact
+
+---
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/laurent-colard-l5i/mediaplanschema.git
+cd mediaplanschema
+```
+
+### 2. Set Up a Virtual Environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate      # Mac/Linux
+.venv\Scripts\activate.bat   # Windows (CMD)
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Running Validation Tests
+
+Run the unit test to validate all media plans in the `examples/` folder:
+
+```bash
+pytest tests/test_examples.py
+```
+
+Each example is dynamically validated against the appropriate schema version declared in its `meta.schema_version`. The test suite supports all versions including current and supported versions.
 
 ---
 
