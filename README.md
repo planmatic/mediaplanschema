@@ -19,7 +19,7 @@ media-plan-ods/
 │   │   ├── campaign.schema.json
 │   │   ├── lineitem.schema.json
 │   │   └── mediaplan.schema.json
-│   ├── 2.0/             # Current version # LC Merge Test 
+│   ├── 2.0/             # Current version 
 │   │   ├── campaign.schema.json
 │   │   ├── dictionary.schema.json
 │   │   ├── lineitem.schema.json
