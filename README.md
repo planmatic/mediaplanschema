@@ -14,9 +14,8 @@ media-plan-ods/
 │   ├── 1.0/             # Deprecated
 │   │   ├── campaign.schema.json
 │   │   ├── lineitem.schema.json
-│   │   ├── mediaplan.schema.json
-│   │   └── documentation/
-│   ├── 2.0/             # Supported - Previous version
+│   │   └── mediaplan.schema.json
+│   ├── 2.0/             # Current version
 │   │   ├── campaign.schema.json
 │   │   ├── dictionary.schema.json
 │   │   ├── lineitem.schema.json
